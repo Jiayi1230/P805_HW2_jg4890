@@ -4,9 +4,26 @@ author: "Jiayi Ge"
 date: "2024-09-30"
 output: github_document
 ---
-## Import data
 ```{r}
 library(tidyverse)
+```
+
+## Import data for Q1
+```{r}
 nyc_data <- read_csv("./nyc_data.csv")
+```
+
+## Read and clean the data for Q1
+```{r}
+nyc_clean <- nyc_data %>%
+  select(Line, `Station Name`, `Station Latitude`, `Station Longitude`, Route1, Route2, Route3, Route4, Route5, Route6, Route7, Route8, Route9, Route10, Route11, `Entrance Type`, Entry, Vending, ADA)
+
+nyc_clean <- nyc_clean %>%
+  mutate(Entry = ifelse(Entry == "YES", TRUE, FALSE))
+
+dim(nyc_clean) 
+# Display (rows x columns) of the cleaned dataset
+
+print(nyc_clean)
 ```
 

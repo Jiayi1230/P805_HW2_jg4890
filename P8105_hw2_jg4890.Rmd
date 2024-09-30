@@ -26,4 +26,11 @@ dim(nyc_clean)
 
 print(nyc_clean)
 ```
+This orginal dataset contains key variables including, Division, Line, Station Name, Station Latitude and Station Longitude, Routes (1-11), Entrance Type(stair, elevator, easement or door), Exit Only, Entry (whether entry is allowed), Vending (whether vending machines are present), Entrance Type (the type of entrance or exit), and ADA (whether the station is ADA compliant).
+
+In the data cleaning process, several columns were retained, including line, station name, latitude/longitude, routes, entry, vending, entrance type, and ADA compliance. The Entry variable, which was initially in character form ("YES" or "NO"), was converted to a logical variable (TRUE or FALSE) for easier analysis. The dataset was checked for missing values, and unnecessary columns were removed.
+
+The resulting cleaned dataset has dimensions of 1868 rows and 19 columns, and it is considered tidy. Each variable represents a single feature, and each row represents a unique station entrance or exit, ensuring the data follows the principles of tidy data.
+
+
 

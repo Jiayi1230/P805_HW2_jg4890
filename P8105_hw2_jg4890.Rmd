@@ -32,7 +32,7 @@ In the data cleaning process, several columns were retained, including line, sta
 
 The resulting cleaned dataset has dimensions of 1868 rows and 19 columns, and it is considered tidy. Each variable represents a single feature, and each row represents a unique station entrance or exit, ensuring the data follows the principles of tidy data.
 
-** Answer the question in Q1 **
+**Answer the question in Q1**
 ```{r}
 distinct_stations <- nyc_clean %>%
   distinct(`Station Name`, Line) %>%
@@ -54,7 +54,7 @@ proportion_allow_entrance
 ```
 There are 465 distinct stations, and 84 stations are ADA compliant. 0.377 of station entrances / exits without vending allow entrance.
 
-##Stations serve the A train
+## Stations serve the A train
 ```{r}
 library(dplyr)
 distinct_a_train_stations <- nyc_clean %>%
@@ -73,4 +73,6 @@ ada_compliant_a_train_stations <- nyc_clean %>%
 ada_compliant_a_train_stations
 ```
 60 distinct stations serve the A train, and 17 of them are ADA compliant.
+
+
 

@@ -1,0 +1,12 @@
+---
+title: "P8105_hw2_jg4890"
+author: "Jiayi Ge"
+date: "2024-09-30"
+output: github_document
+---
+## Import data
+```{r}
+library(tidyverse)
+nyc_data <- read_csv("./nyc_data.csv")
+```
+

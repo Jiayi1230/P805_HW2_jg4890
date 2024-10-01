@@ -173,7 +173,36 @@ library(tidyverse)
 
 bakers <- read_csv("./gbb_datasets/bakers.csv")
 bakes <- read_csv("./gbb_datasets/bakes.csv")
-results <- read_csv("./gbb_datasets/results.csv")
+results <- read_csv("./gbb_datasets/results.csv", skip = 2)
 viewers <- read_csv("./gbb_datasets/viewers.csv")
+```
+The very first two rows for "results" is not useful and will make the code can't run correctly.
+
+Data Cleaning and Tidying
+```{r}
+glimpse(bakers)
+
+bakers_clean <- bakers %>%
+  mutate(Series = as.numeric(Series), 
+         `Baker Age` = as.numeric(`Baker Age`)) 
+
+bakes_clean <- bakes %>%
+  left_join(bakers, by = c("Baker" = "Baker Name", "Series" = "Series")) 
+  
+results <- results %>%
+  rename(Baker = baker, Series = series, Episode = episode)
+  
+merged_data <- bakes %>%
+  left_join(bakers_clean, by = c("Baker" = "Baker Name", "Series" = "Series")) %>%
+  left_join(results, by = c("Baker" = "Baker", "Series" = "Series", "Episode" = "Episode"))
+
+missing_data <- merged_data %>%
+  summarise_all(~ sum(is.na(.)))
+
+final_data <- merged_data %>%
+  select(-`Baker Age`, -`Baker Occupation`, -`Hometown`) %>%
+  arrange(Series, Episode, Baker)
+
+write_csv(final_data, "./gbb_datasets/final_data.csv")
 ```
 

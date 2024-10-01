@@ -79,7 +79,7 @@ Import data and cleaning data
 ```{r}
 library(readxl)
 library(dplyr)
-mr_trash_wheel <- read_excel("./Mr. Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel")
+mr_trash_wheel <- read_excel("./Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel")
 
 mr_trash_wheel_cleaned <- mr_trash_wheel %>%
   select(-c(`...15`, `...16`))
@@ -100,7 +100,7 @@ head(mr_trash_wheel_cleaned)
 
 Import, clean, and organize the data for Professor Trash Wheel
 ```{r}
-prof_trash_wheel <- read_excel("./Mr. Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel")
+prof_trash_wheel <- read_excel("./Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel")
 
 prof_trash_wheel_cleaned <- prof_trash_wheel %>%
   filter(!is.na(Dumpster))%>% 
@@ -114,7 +114,7 @@ head(prof_trash_wheel_cleaned)
 
 Import, clean, and organize the data for Gwynnda Trash Wheel
 ```{r}
-gwy_trash_wheel <- read_excel("./Mr. Trash Wheel Collection Data.xlsx", sheet = "Gwynnda Trash Wheel")
+gwy_trash_wheel <- read_excel("./Trash Wheel Collection Data.xlsx", sheet = "Gwynnda Trash Wheel")
 
 gwy_trash_wheel_cleaned <- gwy_trash_wheel %>%
   filter(!is.na(Dumpster))%>% 
@@ -164,4 +164,6 @@ gwynnda_cig_butts_june2022
 
 # Total number is 18120.
 ```
+
+
 

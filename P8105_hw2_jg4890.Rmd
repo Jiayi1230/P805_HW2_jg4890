@@ -204,5 +204,17 @@ final_data <- merged_data %>%
   arrange(Series, Episode, Baker)
 
 write_csv(final_data, "./gbb_datasets/final_data.csv")
+
+# During doing this csv file, the most important thing is to know which is the data we need and try to collect them. When I try to combine the "result" file, I met some problem due to the very first empty rows. After skip the unnecessary data, I changed all the names into the same ones, which make these files can merge correctly. Also, after ran the final file, I deleted the useless columns. The final data I had, is combined the most useful parts, including the Series, Episode, Baker, Signature Bake, Show Stopper, technical and result.
+```
+
+Answer questions for Q3
+```{r}
+star_baker <- final_data %>%
+  filter(Series >= 5 & Series <= 10, result == "STAR BAKER" | result == "WINNER") %>%
+  select(Series, Episode, Baker, result)
+
+star_baker %>%
+  arrange(Series, Episode, Baker, result)
 ```
 

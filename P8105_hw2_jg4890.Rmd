@@ -90,9 +90,39 @@ mr_trash_wheel_cleaned <- mr_trash_wheel_cleaned %>%
     weight_tons = `Weight (tons)`, 
     volume_cubicyeards = `Volume (cubic yards)`,
     sports_balls = `Sports Balls`)%>%
-  mutate(ports_balls = as.integer(round(sports_balls)))
+  mutate(ports_balls = as.integer(round(sports_balls)), 
+        )
   
-  head(mr_trash_wheel_cleaned)  
+head(mr_trash_wheel_cleaned)  
 
 ```
+
+
+Import, clean, and organize the data for Professor Trash Wheel
+```{r}
+prof_trash_wheel <- read_excel("./Mr. Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel")
+
+prof_trash_wheel_cleaned <- prof_trash_wheel %>%
+  filter(!is.na(Dumpster))%>% 
+  rename(
+    weight_tons = `Weight (tons)`, 
+    volume_cubicyeards = `Volume (cubic yards)`)%>%
+    mutate(Year = as.character(Year))
+head(prof_trash_wheel_cleaned)  
+
+```
+
+Import, clean, and organize the data for Gwynnda Trash Wheel
+```{r}
+gwy_trash_wheel <- read_excel("./Mr. Trash Wheel Collection Data.xlsx", sheet = "Gwynnda Trash Wheel")
+
+gwy_trash_wheel_cleaned <- gwy_trash_wheel %>%
+  filter(!is.na(Dumpster))%>% 
+  rename(
+    weight_tons = `Weight (tons)`, 
+    volume_cubicyeards = `Volume (cubic yards)`) %>%
+    mutate(Year = as.character(Year))
+head(gwy_trash_wheel_cleaned)  
+```
+The `Year` was found not in the same data type as the Mr. trash wheel one, so I convert the prof and gwynnda ones into the character.
 

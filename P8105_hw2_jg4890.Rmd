@@ -74,5 +74,25 @@ ada_compliant_a_train_stations
 ```
 60 distinct stations serve the A train, and 17 of them are ADA compliant.
 
+## Question 2 ##
+Import data and cleaning data
+```{r}
+library(readxl)
+library(dplyr)
+mr_trash_wheel <- read_excel("./Mr. Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel")
 
+mr_trash_wheel_cleaned <- mr_trash_wheel %>%
+  select(-c(`...15`, `...16`))
+
+mr_trash_wheel_cleaned <- mr_trash_wheel_cleaned %>%
+  filter(!is.na(Dumpster))%>% 
+  rename(
+    weight_tons = `Weight (tons)`, 
+    volume_cubicyeards = `Volume (cubic yards)`,
+    sports_balls = `Sports Balls`)%>%
+  mutate(ports_balls = as.integer(round(sports_balls)))
+  
+  head(mr_trash_wheel_cleaned)  
+
+```
 

@@ -6,6 +6,7 @@ output: github_document
 ---
 ```{r}
 library(tidyverse)
+library(janitor)
 ```
 
 ## Import data for Q1
@@ -30,7 +31,7 @@ This orginal dataset contains key variables including, Division, Line, Station N
 
 In the data cleaning process, several columns were retained, including line, station name, latitude/longitude, routes, entry, vending, entrance type, and ADA compliance. The Entry variable, which was initially in character form ("YES" or "NO"), was converted to a logical variable (TRUE or FALSE) for easier analysis. The dataset was checked for missing values, and unnecessary columns were removed.
 
-The resulting cleaned dataset has dimensions of 1868 rows and 19 columns, and it is considered tidy. Each variable represents a single feature, and each row represents a unique station entrance or exit, ensuring the data follows the principles of tidy data.
+The resulting cleaned dataset has dimensions of `r nrow(nyc_clean)` rows and `r ncol(nyc_clean)` columns, and it is considered tidy. Each variable represents a single feature, and each row represents a unique station entrance or exit, ensuring the data follows the principles of tidy data.
 
 **Answer the question in Q1**
 ```{r}
@@ -78,7 +79,6 @@ ada_compliant_a_train_stations
 Import data and cleaning data
 ```{r}
 library(readxl)
-library(dplyr)
 mr_trash_wheel <- read_excel("./Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel")
 
 mr_trash_wheel_cleaned <- mr_trash_wheel %>%
@@ -140,9 +140,9 @@ gwynnda_trash_wheel_clean <- gwy_trash_wheel_cleaned %>%
 all_trash_wheels <- bind_rows(mr_trash_wheel_clean, prof_trash_wheel_clean, gwynnda_trash_wheel_clean)
 
 glimpse(all_trash_wheels)
-
-#The dataset contains information collected by three trash wheels: Mr. Trash Wheel, Professor Trash Wheel, and Gwynnda. Key variables in the dataset include the date of collection, the volume and weight of trash collected, the number of cigarette butts, sports balls, and other trash-related data. The dataset contains 845 rows and 16 columns. 
 ```
+The dataset contains information collected by three trash wheels: Mr. Trash Wheel, Professor Trash Wheel, and Gwynnda. Key variables in the dataset include the date of collection, the volume and weight of trash collected, the number of cigarette butts, sports balls, and other trash-related data. The dataset contains `r nrow(all_trash_wheels)` rows and `r ncol(all_trash_wheels)` columns.
+
 
 Calculate total weight of trash collected by Professor Trash Wheel
 ```{r}
@@ -150,8 +150,9 @@ prof_trash_weight <- all_trash_wheels %>%
   filter(Trash_Wheel == "Professor Trash Wheel") %>%
   summarize(total_weight = sum(weight_tons, na.rm = TRUE))
 prof_trash_weight
-# Total weight is 216 tons
 ```
+Total weight is `r prof_trash_weight` tons.
+
 
 Calculate total number of cigarette butts collected by Gwynnda in June of 2022
 ```{r}
@@ -161,26 +162,34 @@ gwynnda_cig_butts_june2022 <- all_trash_wheels %>%
   summarize(total_cig_butts = sum(`Cigarette Butts`, na.rm = TRUE))
 
 gwynnda_cig_butts_june2022
-
-# Total number is 18120.
 ```
+Total number of cigarette butts collected by Gwynnda in June of 2022 is `r gwynnda_cig_butts_june2022`
+
 
 ##Question 3
 
-Import Data
+Import Data, Data Cleaning and Tidying
 ```{r}
 library(tidyverse)
 
 bakers <- read_csv("./gbb_datasets/bakers.csv")
 bakes <- read_csv("./gbb_datasets/bakes.csv")
 results <- read_csv("./gbb_datasets/results.csv", skip = 2)
+#The very first two rows for "results" is not useful and will make the code can't run correctly.
 viewers <- read_csv("./gbb_datasets/viewers.csv")
-```
-The very first two rows for "results" is not useful and will make the code can't run correctly.
 
-Data Cleaning and Tidying
-```{r}
-glimpse(bakers)
+bakers_clean <- bakers %>%
+  janitor::clean_names()
+
+bakes_clean <- bakes %>%
+  janitor::clean_names()
+
+results_clean <- results %>%
+  janitor::clean_names()
+
+colnames(bakers_clean)
+colnames(bakes_clean)
+colnames(results_clean)
 
 bakers_clean <- bakers %>%
   mutate(Series = as.numeric(Series), 
@@ -205,7 +214,7 @@ final_data <- merged_data %>%
 
 write_csv(final_data, "./gbb_datasets/final_data.csv")
 
-# During doing this csv file, the most important thing is to know which is the data we need and try to collect them. When I try to combine the "result" file, I met some problem due to the very first empty rows. After skip the unnecessary data, I changed all the names into the same ones, which make these files can merge correctly. Also, after ran the final file, I deleted the useless columns. The final data I had, is combined the most useful parts, including the Series, Episode, Baker, Signature Bake, Show Stopper, technical and result.
+# During doing this csv file, the most important thing is to know which is the data we need and try to collect them. Before doing all the programming, I observed these files first, to know the key variables. When I try to combine the "result" file, I met some problems due to the very first two empty rows. After skip the unnecessary data, I changed all the names into the same ones, which make these files can merge correctly. Also, after ran the final file, I deleted the useless columns. The final data I had, is combined with the most useful parts, including the Series, Episode, Baker, Signature Bake, Show Stopper, technical and result.
 ```
 
 Answer questions for Q3
@@ -217,4 +226,19 @@ star_baker <- final_data %>%
 star_baker %>%
   arrange(Series, Episode, Baker, result)
 ```
+
+```{r}
+library(tidyr)
+library(readr)
+viewers <- read_csv("./gbb_datasets/viewers.csv")
+print(head(viewers, 10))
+
+avg_Series_1 <- mean(viewers$`Series 1`, na.rm = TRUE)
+
+avg_Series_5 <- mean(viewers$`Series 5`, na.rm = TRUE)
+
+print(avg_Series_1)
+print(avg_Series_5)
+```
+The average viewership in Season 1 is 2.77.  In Season is 10.0. 
 

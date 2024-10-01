@@ -165,5 +165,15 @@ gwynnda_cig_butts_june2022
 # Total number is 18120.
 ```
 
+##Question 3
 
+Import Data
+```{r}
+library(tidyverse)
+
+bakers <- read_csv("./gbb_datasets/bakers.csv")
+bakes <- read_csv("./gbb_datasets/bakes.csv")
+results <- read_csv("./gbb_datasets/results.csv")
+viewers <- read_csv("./gbb_datasets/viewers.csv")
+```
 

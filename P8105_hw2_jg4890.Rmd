@@ -81,6 +81,7 @@ Import data and cleaning data
 library(readxl)
 mr_trash_wheel <- read_excel("./Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel")
 
+#Since there are two rows without any info, I delect them.
 mr_trash_wheel_cleaned <- mr_trash_wheel %>%
   select(-c(`...15`, `...16`))
 
@@ -166,7 +167,7 @@ gwynnda_cig_butts_june2022
 Total number of cigarette butts collected by Gwynnda in June of 2022 is `r gwynnda_cig_butts_june2022`
 
 
-##Question 3
+## Question 3
 
 Import Data, Data Cleaning and Tidying
 ```{r}
@@ -240,5 +241,5 @@ avg_Series_5 <- mean(viewers$`Series 5`, na.rm = TRUE)
 print(avg_Series_1)
 print(avg_Series_5)
 ```
-The average viewership in Season 1 is 2.77.  In Season is 10.0. 
+The average viewership in Season 1 is 2.77.  In Season 5 is 10.0. 
 
